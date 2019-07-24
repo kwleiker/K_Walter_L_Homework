@@ -1,0 +1,132 @@
+Sub countsales()
+
+Worksheets("2016t").Activate
+
+Set Rng = Range("A1:A800000")
+rw = 1
+For Each Stock In Rng
+    If IsEmpty(Stock) Then Exit For
+    If WorksheetFunction.CountIf(Stock.Offset(-Stock.Row + 1).Resize(Stock.Row), Stock) = 1 Then
+        totVol = WorksheetFunction.SumIf(Rng, Stock, Rng.Offset(, 6))
+        If totVol > 0 Then
+            Cells(rw, 10) = Stock
+            Cells(rw, 11) = totVol
+            rw = rw + 1
+        End If
+    End If
+Next
+
+End Sub
+
+
+
+Sub fomentFormat()
+
+Rows("2:2").Select
+ActiveWindow.FreezePanes = True
+Cells(1, 10) = "Ticker"
+Cells(1, 11) = "Total Stock Volume"
+Range("A1:Z1").Font.Bold = True
+Range("J1:K1").Font.Size = 14
+Range("C2:F800000").NumberFormat = "0.00"
+Range("B:B").ColumnWidth = 10
+Range("G:G").ColumnWidth = 10
+Range("G2:G800000").NumberFormat = "#,##0"
+Range("K2:K800000").NumberFormat = "#,##0"
+Range("K:K").ColumnWidth = 20
+
+End Sub
+
+
+
+
+Sub confession()
+' My computer bugged out.
+' I tested and found the critical mass was around 30,000 cases.
+' Time to process was exponential: NOT T=t*(n_rows) + scalar.
+' time to process was T = t^f(n_rows) + scalar.
+' at 20k rows, it was 20 seconds.
+' at 40k rows, it was 2-3 minutes.
+' at 70k rows, it was 28 minutes.
+' at 790k rows, it was ... not determined.  I killed it.
+' I cheated. I trimmed the number of rows to a manageable level.
+' The Easy output looks the same, but I can't properly compute the moderate and hard output.
+' I /could have/ done a filter: select if <date> = 201y0104 OR <date> = 201y1230
+' then: if <date> = 201y0104, THEN y.open= <open>.i AND THEN y.close=<close>.i+1
+' (or even just done an offset of 262 days)
+' and that would produce an easy way to manage the file
+' this would have reduced file size to where my machine wouldn't bug out
+' OR MAYBE i should have just written this without invoke workbook formulae.
+'
+
+End Sub
+
+
+
+
+
+
+Sub pseudocode()
+ ' 
+ ' PSEUDOCODE
+ ' ' Thought process: "I barely speak human and I definitely don't speak VBA." 
+ ' '  But this really isn't complicated and only needs to hold a few numbers 
+ ' '  there is no reason i should have been able to type this all while the VBA script runs. 
+ ' '  the temp bins are just like two things y(i) and sum(x)
+ ' ' 	<while Y=y(i), X=sigma(x).>
+ ' ' 	<when Y<>y(i), output y(i) and output X.>
+ ' ' 	<[repeat]>
+ ' set k = 1
+ ' set n = 1
+ ' set binStockNameCount=0
+ ' set binStockSalesSum=0
+ ' set StockName(row=1)="Ticker Name"
+ ' set DaysTraded(row=1)="Days Traded"
+ ' set StockSalesVolume(row=1)="Sales Volume"
+ '
+ ' worksheets("1").Activate
+ ' ws.count=count(worksheets) '??? does this exist?
+ '
+ '  '' loop between sheets
+ ' LOOP.("OUTERLOOP") for worksheet(1) to worksheet(ws.count)
+ '
+ '  '' loop within sheets
+ ' LOOP.("INNERLOOP") (within Sheet)
+ '
+ ' rows(2,2).select
+ '
+ '  '' if stock is the same, add values to bins
+ ' for binTicker(row.current) = varTicker(row.n-1)
+ '  ADD binStockNameCount = StockNameCount + 1
+ '  ADD binStockSalesSum = binStockSalesSum + varStockSales(row=n)
+ '  NEXT
+ '
+ '  '' if not the same stock, output bins, refresh data, and start loop anew
+ ' for varTicker(row.n)<>varTicker(row.n-1) AND varTicker(row.n)<>[NULL]
+ '  OUTPUT binTicker to $StockName at (column="K",row=k+1)
+ '  OUTPUT binStockNameCount to $DaysTraded at (column="L",row=k+1)
+ '  OUTPUT binStockSalesSum to $StockSalesTotal at (column="M",row=k+1)
+ '  SET binTicker=varTicker(row.n)
+ '  SET binStockNameCount=1
+ '  SET binStockSalesSum=varStockSales(row.n)
+ '
+ '  LOOP.("INNERLOOP")  'keep reading data in same sheet at row=next
+ '  NEXT
+ '
+ '  '' if out of data to read, leave the within-sheet loop
+ ' for varTicker(row.n)=[NULL]
+ '  LEAVE LOOP.("INNERLOOP")
+ '  NEXT
+ '
+ '  '' if not last sheet, loop to next sheet.
+ ' for worksheet(active)<>worksheet(ws.count)
+ '  LOOP LOOP.("INNERLOOP")
+ '
+ '  '' if last sheet, leave the between-sheet loop
+ ' for worksheet(active)=worksheet(ws.count)
+ '  LEAVE LOOP1.("OUTERLOOP")
+ '  NEXT
+ ' NEXT
+ ' END
+End Sub
+
