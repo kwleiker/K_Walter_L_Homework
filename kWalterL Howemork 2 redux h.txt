@@ -1,0 +1,155 @@
+Sub thing16()
+
+Worksheets("2016").Activate
+  Dim Symbol As String
+  Dim Volume As Double
+  Dim outputRow As Integer
+  Volume = 0
+  outputRow = 2
+
+
+Rows("2:2").Select
+ActiveWindow.FreezePanes = True
+
+Cells(1, 10) = "Stock Symbol"
+Cells(1, 11) = "2016 Sales Volume"
+
+Range("J1:K1").WrapText = True
+Range("K1").HorizontalAlignment = xlRight
+Range("A1:Z1").Font.Bold = True
+
+Range("J1:K1").Font.Size = 14
+Range("J2:K797721").Font.Size = 12
+Range("A1:G1").Font.Size = 11
+Range("A1:G797721").Font.Size = 10
+
+Range("C2:F797221").NumberFormat = "0.00"
+Range("G2:G797221").NumberFormat = "#,##0"
+Range("K2:K797221").NumberFormat = "#,##0"
+
+Range("A:A").ColumnWidth = 8
+Range("B:B").ColumnWidth = 10
+Range("C:F").ColumnWidth = 8
+Range("G:G").ColumnWidth = 10
+Range("J:J").ColumnWidth = 10
+Range("K:K").ColumnWidth = 15
+
+For i = 2 To 797721
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+      Symbol = Cells(i, 1).Value
+      Volume = Volume + Cells(i, 7).Value
+      Range("J" & outputRow).Value = Symbol
+      Range("K" & outputRow).Value = Volume
+      outputRow = outputRow + 1
+      Volume = 0
+    Else
+      Volume = Volume + Cells(i, 7).Value
+
+    End If
+  Next i
+End Sub
+
+
+Sub thing15()
+
+Worksheets("2015").Activate
+  Dim Symbol As String
+  Dim Volume As Double
+  Dim outputRow As Integer
+  Volume = 0
+  outputRow = 2
+
+
+Rows("2:2").Select
+ActiveWindow.FreezePanes = True
+
+Cells(1, 10) = "Stock Symbol"
+Cells(1, 11) = "2015 Sales Volume"
+
+Range("J1:K1").WrapText = True
+Range("K1").HorizontalAlignment = xlRight
+Range("A1:Z1").Font.Bold = True
+
+Range("J1:K1").Font.Size = 14
+Range("J2:K760202").Font.Size = 12
+Range("A1:G1").Font.Size = 11
+Range("A1:G760202").Font.Size = 10
+
+Range("C2:F760202").NumberFormat = "0.00"
+Range("G2:G760202").NumberFormat = "#,##0"
+Range("K2:K760202").NumberFormat = "#,##0"
+
+Range("A:A").ColumnWidth = 8
+Range("B:B").ColumnWidth = 10
+Range("C:F").ColumnWidth = 8
+Range("G:G").ColumnWidth = 10
+Range("J:J").ColumnWidth = 10
+Range("K:K").ColumnWidth = 15
+
+For i = 2 To 760202
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+      Symbol = Cells(i, 1).Value
+      Volume = Volume + Cells(i, 7).Value
+      Range("J" & outputRow).Value = Symbol
+      Range("K" & outputRow).Value = Volume
+      outputRow = outputRow + 1
+      Volume = 0
+    Else
+      Volume = Volume + Cells(i, 7).Value
+
+    End If
+  Next i
+End Sub
+
+
+Sub thing14()
+
+Worksheets("2014").Activate
+  Dim Symbol As String
+  Dim Volume As Double
+  Dim outputRow As Integer
+  Volume = 0
+  outputRow = 2
+
+
+Rows("2:2").Select
+ActiveWindow.FreezePanes = True
+
+Cells(1, 10) = "Stock Symbol"
+Cells(1, 11) = "2014 Sales Volume"
+
+Range("J1:K1").WrapText = True
+Range("K1").HorizontalAlignment = xlRight
+Range("A1:Z1").Font.Bold = True
+
+Range("J1:K1").Font.Size = 14
+Range("J2:K705724").Font.Size = 12
+Range("A1:G1").Font.Size = 11
+Range("A1:G705724").Font.Size = 10
+
+Range("C2:F705724").NumberFormat = "0.00"
+Range("G2:G705724").NumberFormat = "#,##0"
+Range("K2:K705724").NumberFormat = "#,##0"
+
+Range("A:A").ColumnWidth = 8
+Range("B:B").ColumnWidth = 10
+Range("C:F").ColumnWidth = 8
+Range("G:G").ColumnWidth = 10
+Range("J:J").ColumnWidth = 10
+Range("K:K").ColumnWidth = 15
+
+For i = 2 To 705724
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+      Symbol = Cells(i, 1).Value
+      Volume = Volume + Cells(i, 7).Value
+      Range("J" & outputRow).Value = Symbol
+      Range("K" & outputRow).Value = Volume
+      outputRow = outputRow + 1
+      Volume = 0
+    Else
+      Volume = Volume + Cells(i, 7).Value
+
+    End If
+  Next i
+End Sub
+
